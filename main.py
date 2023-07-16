@@ -65,14 +65,37 @@ class Player(object):
         self.sine = math.sin(math.radians(self.angle + 90))
         self.head = (self.x + self.cosine * self.w // 2, self.y - self.sine * self.h // 2)
 
-         
-         
+class Bullet(object):
+    def __init__(self):
+        self.point = player.head
+        self.x, self.y = self.point
+        self.w = 4
+        self.h = 4
+        self.c = player.cosine
+        self.s = player.sine
+        self.xv = self.c * 10
+        self.yv = self.s * 10
+
+    def move(self):
+        self.x += self.xv
+        self.y -= self.yv
+
+    def draw(self, win):
+        pygame.draw.rect(win, (255, 255, 255), [self.x, self.y, self.w, self.h])
+
+    def checkOffScreen(self):
+        if self.x < -50 or self.x > sw or self.y > sh or self.y < -50:
+            return True
+        
 def redrawGameWindow():
     win.blit(bg, (0,0))
     player.draw(win)
+    for b in playerBullets:
+        b.draw(win)
     pygame.display.update()
     
 player = Player()
+playerBullets = []
 
 run = True
 while run:
@@ -89,5 +112,10 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run= False
+            
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                if not gameover:
+                    playerBullets.append(Bullet())
             
 pygame.quit()
