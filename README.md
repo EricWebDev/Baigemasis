@@ -10,3 +10,6 @@ Nusikopijave repositorija terminale aktyvuokit venv, aktyvave virtualia aplinka 
 # Failu paaiskinimai 
 Pagrindinis failas yra main.py, asteriodPics aplankalas laiko nuotrauku failus, Sounds aplankalas laiko garso takeliu failus, 
 test.py failas leido atlikti testus programos patikrinmui, requirements.txt laiko reikalingas biblioteku versijas.
+
+# Progama sukure
+Erikas
