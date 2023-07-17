@@ -1,7 +1,6 @@
 import pygame
 import math
 import random
-
 pygame.init()
 pygame.mixer.init()
 
@@ -17,6 +16,8 @@ asteroid150 = pygame.image.load('asteroidsPics/asteroid150.png')
 
 #bg music
 pygame.mixer.music.load('sounds\music-for-arcade-style-game-146875.mp3')
+#bg volume
+pygame.mixer.music.set_volume(0.2)
 #bg music loop
 pygame.mixer.music.play(loops=-1)
 #game over sound
@@ -40,6 +41,7 @@ rapidFire =False
 rfStart = -1
 isSoundOn = True
 highScore = 0 
+isMusicOn = True 
 
 #klases !
 class Player(object):
@@ -207,6 +209,15 @@ class AlienBullet(object):
     def draw(self, win):
         pygame.draw.rect(win, (255, 255, 255), [self.x, self.y, self.w, self.h])
 
+def toggle_music():
+    global isMusicOn
+    isMusicOn = not isMusicOn
+    if isMusicOn:
+        pygame.mixer.music.set_volume(0.2)  # Set the volume back to the original level (0.2)
+        pygame.mixer.music.unpause()  # Unpause the music if it was paused
+    else:
+        pygame.mixer.music.set_volume(0)  # Mute the background music
+        pygame.mixer.music.pause()
 #log        
 def redrawgamewindow():
     win.blit(bg, (0,0))
@@ -380,6 +391,7 @@ while run:
         if event.type == pygame.QUIT:
             run = False
             
+            
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 if not gameover:
@@ -389,6 +401,8 @@ while run:
                             shoot.play()
             if event.key == pygame.K_m:
                 isSoundOn = not isSoundOn
+            if event.key == pygame.K_m:
+                toggle_music()
             if event.key == pygame.K_TAB:
                 if gameover:
                     gameover = False
