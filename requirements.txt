@@ -1,0 +1,5 @@
+Faker==12.0.1
+mixer==7.2.2
+pygame==2.5.0
+python-dateutil==2.8.2
+six==1.16.0
