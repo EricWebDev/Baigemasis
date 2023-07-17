@@ -15,6 +15,13 @@ asteroid50 = pygame.image.load('asteroidsPics/asteroid50.png')
 asteroid100 = pygame.image.load('asteroidsPics/asteroid100.png')
 asteroid150 = pygame.image.load('asteroidsPics/asteroid150.png')
 
+#bg music
+pygame.mixer.music.load('sounds\music-for-arcade-style-game-146875.mp3')
+#bg music loop
+pygame.mixer.music.play(loops=-1)
+#game over sound
+game_over_sound = pygame.mixer.Sound('sounds\game_over.wav')
+#sound effect
 shoot = pygame.mixer.Sound('sounds/shoot.wav')
 bangLargeSound = pygame.mixer.Sound('sounds/bangLarge.wav')
 bangSmallSound = pygame.mixer.Sound('sounds/bangSmall.wav')
@@ -200,11 +207,10 @@ class AlienBullet(object):
     def draw(self, win):
         pygame.draw.rect(win, (255, 255, 255), [self.x, self.y, self.w, self.h])
 
-
 #log        
 def redrawgamewindow():
     win.blit(bg, (0,0))
-    font = pygame.font.SysFont('arial',30)
+    font = pygame.font.SysFont('arial', 30)
     livesText = font.render('Lives: ' + str(lives), 1, (255, 255, 255))
     playAgainText = font.render('Press Tab to Play Again', 1, (255,255,255))
     scoreText = font.render('Score: ' + str(score), 1, (255,255,255))
@@ -351,6 +357,8 @@ while run:
                         break
         if lives <= 0:
             gameover = True
+            if isSoundOn:
+                game_over_sound.play()
         if rfStart != -1:
             if count - rfStart > 500:
                 rapidFire = False
@@ -392,12 +400,8 @@ while run:
                 if score > highScore:
                     highScore = score
                     score = 0
-                    
-                    
-                    
-            
-    redrawgamewindow()
-    
 
-  
+                               
+    redrawgamewindow()
+ 
 pygame.quit()
