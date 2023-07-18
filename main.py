@@ -227,8 +227,6 @@ def redrawgamewindow():
     scoreText = font.render('Score: ' + str(score), 1, (255,255,255))
     highScoreText = font.render('High Score: ' + str(highScore), 1, (255, 255, 255))
 
-
-
     player.draw(win)
     for a in asteriods:
         a.draw(win)
@@ -350,8 +348,6 @@ while run:
                         asteriods.pop(asteriods.index(a))
                         playerBullets.pop(playerBullets.index(b))
                         break
-                        
-    
         for s in stars:
             s.x += s.xv
             s.y += s.yv
@@ -390,8 +386,7 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-            
-            
+                        
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 if not gameover:
@@ -414,8 +409,7 @@ while run:
                 if score > highScore:
                     highScore = score
                     score = 0
-
-                               
+                    
     redrawgamewindow()
  
 pygame.quit()
